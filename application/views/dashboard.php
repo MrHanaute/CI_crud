@@ -44,34 +44,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	<?php endif; ?>
 
-	<?php if (isset($contato)): ?>
-		<form method="post" action="<?=base_url('dash/atualizar')?>" enctype="multipart/form-data">
-		<input type="hidden" name="id" value="<?= $contato['id'] ?>"/>
-	<?php endif; ?>
-	<?php if (!isset($contato)): ?>
-		<form method="post" action="<?=base_url('dash/salvar')?>" enctype="multipart/form-data">
-	<?php endif; ?>
+	<form method="post" action="<?= isset($contato) ? base_url('dash/atualizar') : base_url('dash/salvar') ;?>" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="<?= isset($contato) ? $contato['id'] : "" ;?>"/>
 
 		<div class="form-group">
 			<label class="form-check-label">Nome:</label>
-			<?php if (!isset($contato)): ?>
-				<input class="form-control" type="text" name="nome" value="" required/>
-			<?php endif; ?>
-			<?php if (isset($contato)): ?>
-				<input class="form-control" type="text" name="nome" value="<?= $contato['nome']?>" required/>
-			<?php endif; ?>
+				<input class="form-control" type="text" name="nome" value="<?= isset($contato['nome'])? $contato['nome'] :"" ;?>" required/>
 		</div>
 
 		<div class="form-group">
 			<label class="form-check-label">Email:</label>
-			<?php if (!isset($contato)): ?>
-				<input class="form-control" type="email" name="email" value="" required/>
-			<?php endif; ?>
-			<?php if (isset($contato)): ?>
-				<input class="form-control" type="email" name="email" value="<?= $contato['email']?>" required/>
-			<?php endif; ?>
-			
+			<input class="form-control" type="email" name="email" value="<?= isset($contato['email']) ? $contato['email']: ""?>" required/>			
 		</div>
+
 		<div>
 			<label><em>Todos os campos são obrigatórios.</em></label><br>
 			<input class="btn btn-success" type="submit" value="Salvar"/>
@@ -99,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<tr>
 							<td><?= $row['nome'] ?></td>
 							<td><?= $row['email'] ?></td>
-							<td><a class="btn btn-info" href="<?= $row['editar_url'] ?>">[Editar]</a> <a class="btn btn-danger" href="<?= $row['excluir_url'] ?>">[Excluir]</a></td>
+							<td><a class="btn btn-info" href="<?= $row['editar_url'] ?>">Editar</a> <a class="btn btn-danger" href="<?= $row['excluir_url'] ?>">Excluir</a></td>
 						</tr>
 					<?php endforeach; ?>
 				<?php endif; ?>
